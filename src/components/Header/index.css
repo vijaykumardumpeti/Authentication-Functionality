@@ -1,0 +1,11 @@
+/* Write your CSS code here */
+.un-ordered-list {
+  list-style-type: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 170px;
+}
