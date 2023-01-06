@@ -1,9 +1,11 @@
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
+import {Component} from 'react'
 import './index.css'
 
-const Login = props => {
-  const {history} = props
-  const onLoginClicked = async () => {
+export default class Login extends Component {
+  onLoginClicked = async () => {
+    const {history} = this.props
     const url = 'https://apis.ccbp.in/login'
     const userDetails = {
       username: 'rahul',
@@ -22,14 +24,19 @@ const Login = props => {
     history.replace('/')
   }
 
-  return (
-    <div className="login-bg-container">
-      <h1>Please Login</h1>
-      <button onClick={onLoginClicked} type="button">
-        Login with Sample Creds
-      </button>
-    </div>
-  )
-}
+  render() {
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
 
-export default Login
+    return (
+      <div className="login-bg-container">
+        <h1>Please Login</h1>
+        <button onClick={this.onLoginClicked} type="button">
+          Login with Sample Creds
+        </button>
+      </div>
+    )
+  }
+}
